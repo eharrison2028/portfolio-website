@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/gif" href="C:\Users\eharriso1\Desktop\Portfolio Website\images\yoshi.gif">
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-family: Tahoma, sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header{
+            background-color: #CBB3BF;
+            color: black;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav{
+            background-color: #8DA1B9;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        nav a{
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .cute-frame{
+            position: absolute;
+            background-color: #ffffff;
+            padding: 15px 15px 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(255, 143, 171, 0.4);
+            border: 4px solid #ffb3c6;
+            max-width: 280px;
+            text-align: center;
+            transform: rotate(-3deg); /* Cute slight tilt */
+            transition: transform 0.3s ease;
+        }
+
+        .cute-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+        .photo-wrapper{
+            width: 100%;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 2px solid #ffe5ec;
+            background-color: #f0f0f0;
+        }
+        .photo-wrapper img{
+           display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .container{
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 5px;
+            padding: 5px;
+            flex: 1;
+        }
+        main{
+            background: #FFF7AE;
+            padding: 5px;
+        }
+        .about-layout{
+            position: relative;
+            width: 100%;
+            max-width: 1300px;
+            min-height: 1300px;
+            margin: 0 auto;
+        }
+        .about-text{
+            width: min(600px, 50%);
+            margin: 0 auto;
+            text-align: center;
+        }
+        .about-text h2{
+            margin-bottom: 20px;
+        }
+        .about-text p{
+            margin-bottom: 30px;
+        }
+        .left-frame{
+            left: 30px;
+            transform: rotate(-4deg);
+        }
+        .right-frame {
+            right: 30px;
+            transform: rotate(4deg);
+        }
+        .left-frame:hover{
+            transform: rotate(3deg) scale(1.05);
+        }
+        .right-frame:hover{
+            transform: rotate(-3deg) scale(1.05);
+        }
+        .photo-1{
+            top: 40px;
+        }
+        .photo-2 {
+            top: 330px;
+        }
+        .photo-3 {
+            top:620px;
+        }
+        .photo-4{
+            top:910px;
+        }
+        aside{
+            background: #ddd;
+            padding: 5px;
+        }
+        footer{
+            background: #CBB3BF;
+            color: black;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        @media (max-width: 768px)
+        {
+            .container{
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>About Me</h1>
+    </header>
+
+    <nav>
+        <a href="src.html">Home</a>
+        <a href="aboutme.html">About Me</a>
+        <a href="projects.html">Projects</a>
+        <a href="#">Blog</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <main>
+        <section class="about-layout">
+            <div class="about-text">
+                <h2>Hello!</h2>
+                <p>
+                    My name is Emma Harrison!
+                    I am an undergraduate student at Lawrence Technological University,
+                    studying Robotics Engineering and Computer Science with a concentration in Artificial Intelligence.
+                </p>
+                <p>
+                    I began my college journey in 2022 after graduating from Chippewa Valley High School in Clinton Township, Michigan.
+                    I have always had an interest in understanding how the computers we rely upon in our daily lives work from both a software and hardware perspective. Beginning my college journey as a computer
+                    science major allowed me to explore those interests in a supportive educational environment. Once I reached my sophomore year, I found myself growing more and more interested in the hands-on class structure found
+                    in the robotics engineering courses. I made the decision to add Robotics Engineering as a second major degree program that spring, beginning my studies the following fall semester.
+                    I could not be more grateful for the opportunity to study such an exciting field alongside the people that I love. My dad, Roger Harrison, has always been a source of inspirtation for me,
+                    pushing me toward my passions in a STEM-related career. My mom, Carla Harrison, is also not only supportive of my love for technology, but also helps me express myself creatively, as we are (more often than not)
+                    starting up a new craft project or hobby.
+                </p>
+                <p>
+                    My family has always held a strong presence in my life, pushing me to do my best and make the people I love proud. My sisters, Erica and Ruby,
+                    are figures I have looked up to my entire life for their leadership, kindness, and unending devotion to their families. My oldest sister, Ruby, is one of 
+                    the hardest working and most dedicated people I know. When she isn't performing her duties as a leader and strong figure at work, she can be found tending to her chickens, or completing a puzzle with her daughter, Ella. 
+                    My middle sister, Erica, is an inspirational source of both creativity and dedication. She is always taking on a new sewing project,
+                    cooking amazing food, and taking care of her family in the most loving ways. 
+                    Though I have only two sisters biologically, I have four sisters in spirit. Ruby and Erica have gifted our family with two wonderful girls, Ella and Nora, who are as close to my siblings as my actual siblings. Only 5 and 10 
+                    years younger than me, I was raised playing with and caring for these two wonderful girls. Ella graduates high school this year (OMG!), and Nora is entering the seventh grade. I can often be found at sleepovers over the weekend, hanging out with my girls, 
+                    and helping with math homework over facetime during the week.
+                </p>
+                <p>
+                    In my free time, I enjoy baking, creating stained glass art, and reading romantic fantasy novels. My favorite TV shows are 
+                    Loki, WandaVision, Supernatural and Doctor Who. I am a massive fan of Marvel's Spider-Man, and can often be found watching (or re-watching) Marvel movies on the weekends.
+                    I share my love for superhero movies with my dad, and have established a tradition of seeing each new Marvel movie in theaters as it releases. 
+                </p>
+            </div>
+            <div class="cute-frame left-frame photo-1">
+                <div class="photo-wrapper">
+                    <img src="images/IMG_2932.PNG" alt="A selfie of Emma seated in a theater">
+                </div>
+            </div>
+            <div class="cute-frame right-frame photo-2">
+                <div class="photo-wrapper">
+                    <img src="images/IMG_2933.PNG" alt="Emma with her parents">
+                </div>
+            </div>
+            <div class="cute-frame left-frame photo-3">
+                <div class="photo-wrapper">
+                    <img src="images/IMG_2932.PNG" alt="Emma with her parents">
+                </div>
+            </div>
+                <div class="cute-frame right-frame photo-4">
+                <div class="photo-wrapper">
+                    <img src="images/IMG_2933.PNG" alt="Emma with her parents">
+                </div>
+            </div>
+        </section>
+
+    </main>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="C:\Users\eharriso1\Desktop\Portfolio Website\images\yoshi.gif">
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-family: Tahoma, sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header{
+            background-color: #CBB3BF;
+            color: black;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav{
+            background-color: #8DA1B9;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        nav a{
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        .container{
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 5px;
+            padding: 5px;
+            flex: 1;
+        }
+        main{
+            background: #FFF7AE;
+            padding: 5px;
+        }
+        aside{
+            background: #ddd;
+            padding: 5px;
+        }
+        footer{
+            background: #CBB3BF;
+            color: black;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        @media (max-width: 768px)
+        {
+            .container{
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Emma Harrison</h1>
+        <h2>Portfolio Website</h2>
+    </header>
+
+    <nav>
+        <a href="src.html">Home</a>
+        <a href="aboutme.html">About Me</a>
+        <a href="projects.html">Projects</a>
+        <a href="#">Blog</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="container">
+        <main>
+            <h3>Hello!</h3>
+            <p>Welcome to my portfolio website. It is still under construction, but this will eventually be a space to share past, current and future projects, publications, and other cool, quirky, creative happenings in my life! Take a look around! Thanks for visiting!</p>
+        </main>
+
+        <aside>
+            <h4>Sidebar</h4>
+            <p>This is the aside section</p>
+        </aside>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Emma Harrison. Written using html and VS Code.</p>
+    </footer>
+
+</body>
+</html>
