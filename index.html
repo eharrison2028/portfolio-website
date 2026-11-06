@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="C:\Users\eharriso1\Desktop\Portfolio Website\images\yoshi.gif">
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header{
+            background-color: #AF9BB6;
+            color: #fdf0d5;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav{
+            background-color: #84596B;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        nav a{
+            color: #fdf0d5;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        .container{
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 5px;
+            padding: 5px;
+            flex: 1;
+        }
+        main{
+            background: #AF9BB6;
+            padding: 5px;
+        }
+        aside{
+            background: #ddd;
+            padding: 5px;
+        }
+        footer{
+            background: #AF9BB6;
+            color: black;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        @media (max-width: 768px)
+        {
+            .container{
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: var(--size);
+            height: auto;
+            pointer-events: none;
+            z-index: 1000;
+            image-rendering: pixelated;
+
+            filter: drop-shadow(0 0 3px #ffe9a6);
+            opacity: 1;
+            transform: translate(-50%, -50%) rotate(var(--rotation));
+
+            animation: pixie-dust var(--life) ease-out forwards;
+            animation-delay: 400ms;
+            }
+
+            @keyframes pixie-dust {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.4)
+                        rotate(var(--rotation));
+            }
+
+            15% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1)
+                        rotate(var(--rotation));
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                translate(
+                    calc(-50% + var(--drift)),
+                    calc(-50% + var(--fall))
+                )
+                scale(0)
+                rotate(calc(var(--rotation) + 90deg));
+            }
+            }
+
+        .music-player {
+            text-align: center;
+            padding: 20px;
+            background: #84596B;
+            color: #fdf0d5;
+            border-radius: 12px;
+            }
+
+            .record {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+
+            /* Dark rings resemble the grooves of a record */
+            background: repeating-radial-gradient(
+                circle,
+                #191919 0px,
+                #191919 3px,
+                #303030 4px,
+                #191919 5px
+            );
+
+            box-shadow: 0 4px 12px #0006;
+
+            animation: record-spin 4s linear infinite;
+            animation-play-state: paused;
+            }
+
+            .record img {
+            position: absolute;
+            width: 65%;
+            height: 65%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            object-fit: cover;
+            }
+
+            /* Center spindle hole */
+            .record::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: #fdf0d5;
+            }
+
+            .record.playing {
+            animation-play-state: running;
+            }
+
+            .music-player button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            font: inherit;
+            color: #fdf0d5;
+            background: #AF9BB6;
+            border: 2px solid #fdf0d5;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 24px;
+            min-width: 48px;
+            }
+
+            @keyframes record-spin {
+            to {
+                transform: rotate(360deg);
+            }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+            .record {
+                animation: none;
+            }
+            }
+
+        .wisteria {
+            position: absolute; /* Use absolute if it should scroll with the page */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 230px;
+            pointer-events: none;
+            z-index: 10;
+
+            }
+            .leaf-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 320px;
+
+            background-image: url("animations/leaves1-export.png");
+            background-repeat: repeat-x;
+            background-position: top left;
+            background-size: auto 320px;
+
+            image-rendering: pixelated;
+            z-index: 2;
+            }
+
+            .branch {
+            z-index:1;
+            --flip: 1;
+            position: absolute;
+            top: -8px;
+            width: 200px;
+            height: auto;
+
+            /* Preserve crisp pixel edges */
+            image-rendering: pixelated;
+
+            /* Swing from the point where the stem attaches */
+            transform-origin: 50% 0%;
+            animation: sway 5s ease-in-out infinite alternate;
+            }
+
+            .branch:nth-of-type(1) {
+            left: 5%;
+            width: 60px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            }
+
+            .branch:nth-of-type(2) {
+            left: 12%;
+            width: 70px;
+            animation-duration: 6s;
+            animation-delay: -4s;
+            }
+
+            .branch:nth-of-type(3) {
+            left: 17%;
+            width: 65px;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            }
+
+            .branch:nth-of-type(4) {
+            left: 25%;
+            width: 52px;
+            animation-duration: 6.5s;
+            animation-delay: -3s;
+            }
+
+            .branch:nth-of-type(5) {
+            left: 1%;
+            width: 50px;
+            animation-duration: 6.5s;
+            animation-delay: -3s;
+            }
+
+            .branch:nth-of-type(6) {
+            left: 15%;
+            width: 55px;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            }
+
+            .branch:nth-of-type(7) {
+            left: 8%;
+            width: 68px;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            }
+
+            .branch:nth-of-type(8) {
+            left: 10%;
+            width: 60px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+            .branch:nth-of-type(9) {
+            left: 7%;
+            width: 50px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+            .branch:nth-of-type(10) {
+            left: 14%;
+            width: 45px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+            .branch:nth-of-type(11) {
+            left: 18%;
+            width: 50px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+            .branch:nth-of-type(12) {
+            left: 3%;
+            width: 50px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+            .branch:nth-of-type(13) {
+            left: 10%;
+            width: 42px;
+            --flip:-1;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            }
+            
+            .branch:nth-of-type(14) {
+            left: 19%;
+            width: 50px;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            --flip:-1;
+            }
+
+            .branch:nth-of-type(15) {
+            left: 22%;
+            width: 45px;
+            animation-duration: 6.5s;
+            animation-delay: -3s;
+            }
+
+            .branch:nth-of-type(16) {
+            left: 27%;
+            width: 40px;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            --flip:-1;
+            }
+
+            .branch:nth-of-type(17) {
+            left: 29%;
+            width: 40px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            --flip:-1;
+            }
+            
+            .branch:nth-of-type(18) {
+            left: 23%;
+            width: 50px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+
+            .branch:nth-of-type(2), 
+            .branch:nth-of-type(4), 
+            .branch:nth-of-type(6),
+            .branch:nth-of-type(11) {
+                --flip:-1;
+            }
+
+            @keyframes sway {
+            from { transform: rotate(-3deg) scaleX(var(--flip)); }
+            to   { transform: rotate(3deg) scaleX(var(--flip));}
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+            .branch {
+                animation: none;
+            }
+
+            
+        }
+        .wisteria-mirrored {
+            position: absolute; /* Use absolute if it should scroll with the page */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 230px;
+            pointer-events: none;
+            z-index: 10;
+
+            transform: scaleX(-1);
+            }
+            .leaf-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 320px;
+
+            background-image: url("animations/leaves1-export.png");
+            background-repeat: repeat-x;
+            background-position: top left;
+            background-size: auto 320px;
+
+            image-rendering: pixelated;
+            z-index: 2;
+            }
+
+            .branch {
+            z-index:1;
+            --flip: 1;
+            position: absolute;
+            top: -8px;
+            width: 200px;
+            height: auto;
+
+            /* Preserve crisp pixel edges */
+            image-rendering: pixelated;
+
+            /* Swing from the point where the stem attaches */
+            transform-origin: 50% 0%;
+            animation: sway 5s ease-in-out infinite alternate;
+            }
+
+            .branch:nth-of-type(1) {
+            left: 5%;
+            width: 60px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            }
+
+            .branch:nth-of-type(2) {
+            left: 12%;
+            width: 70px;
+            animation-duration: 6s;
+            animation-delay: -4s;
+            }
+
+            .branch:nth-of-type(3) {
+            left: 17%;
+            width: 65px;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            }
+
+            .branch:nth-of-type(4) {
+            left: 25%;
+            width: 52px;
+            animation-duration: 6.5s;
+            animation-delay: -3s;
+            }
+
+            .branch:nth-of-type(5) {
+            left: 1%;
+            width: 50px;
+            animation-duration: 6.5s;
+            animation-delay: -3s;
+            }
+
+            .branch:nth-of-type(6) {
+            left: 15%;
+            width: 55px;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            }
+
+            .branch:nth-of-type(7) {
+            left: 8%;
+            width: 68px;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            }
+
+            .branch:nth-of-type(8) {
+            left: 10%;
+            width: 60px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+            .branch:nth-of-type(9) {
+            left: 7%;
+            width: 50px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+            .branch:nth-of-type(10) {
+            left: 14%;
+            width: 45px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+            .branch:nth-of-type(11) {
+            left: 18%;
+            width: 50px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+            .branch:nth-of-type(12) {
+            left: 3%;
+            width: 50px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+            .branch:nth-of-type(13) {
+            left: 10%;
+            width: 42px;
+            --flip:-1;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            }
+            
+            .branch:nth-of-type(14) {
+            left: 19%;
+            width: 50px;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            --flip:-1;
+            }
+
+            .branch:nth-of-type(15) {
+            left: 22%;
+            width: 45px;
+            animation-duration: 6.5s;
+            animation-delay: -3s;
+            }
+
+            .branch:nth-of-type(16) {
+            left: 27%;
+            width: 40px;
+            animation-duration: 5.4s;
+            animation-delay: -1s;
+            --flip:-1;
+            }
+
+            .branch:nth-of-type(17) {
+            left: 29%;
+            width: 40px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            --flip:-1;
+            }
+            
+            .branch:nth-of-type(18) {
+            left: 23%;
+            width: 50px;
+            animation-duration: 4.8s;
+            animation-delay: -2s;
+            z-index: 0;
+            }
+
+
+            .branch:nth-of-type(2), 
+            .branch:nth-of-type(4), 
+            .branch:nth-of-type(6),
+            .branch:nth-of-type(11) {
+                --flip:-1;
+            }
+
+            @keyframes sway {
+            from { transform: rotate(-3deg) scaleX(var(--flip)); }
+            to   { transform: rotate(3deg) scaleX(var(--flip));}
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+            .branch {
+                animation: none;
+            }
+
+            
+        }
+    </style>
+</head>
+<script>
+    const trailImages = [
+        "animations/cursor-trail-1-dots.png",
+        "animations/cursor-trail-1-star.png",
+        "animations/cursor-trail-1-cross.png",
+        "animations/cursor-trail-1-3star.png",
+        "animations/cursor-trail-1-4star.png"
+    ];
+
+    trailImages.forEach((path) => {
+        const image = new Image();
+        image.src = path;
+    });
+
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    );
+
+    let lastTrailTime = 0;
+
+    function createDust(x, y) {
+        const dust = document.createElement("img");
+
+        dust.src = trailImages[
+        Math.floor(Math.random() * trailImages.length)
+        ];
+
+        dust.className = "cursor-trail";
+        dust.alt = "";
+        dust.setAttribute("aria-hidden", "true");
+
+        // Scatter the particles slightly around the cursor.
+        dust.style.left = x + (Math.random() - 0.5) * 20 + "px";
+        dust.style.top = y + (Math.random() - 0.5) * 20 + "px";
+
+        dust.style.setProperty("--size", 32 + Math.random() * 32 + "px");
+        dust.style.setProperty("--life", 600 + Math.random() * 700 + "ms");
+        dust.style.setProperty("--drift", (Math.random() - 0.5) * 70 + "px");
+        dust.style.setProperty("--fall", 35 + Math.random() * 65 + "px");
+        dust.style.setProperty("--rotation", Math.random() * 180 + "deg");
+
+        document.body.appendChild(dust);
+
+        dust.addEventListener("animationend", () => dust.remove());
+    }
+
+    document.addEventListener("pointermove", (event) => {
+        if (event.pointerType !== "mouse" || reducedMotion.matches) {
+        return;
+        }
+
+        const now = performance.now();
+
+        if (now - lastTrailTime < 35) {
+        return;
+        }
+
+        lastTrailTime = now;
+
+        // Create a small burst with each movement.
+        for (let i = 0; i < 3; i++) {
+        createDust(event.clientX, event.clientY);
+        }
+    });
+</script>
+
+<body>
+    <div class="wisteria" aria-hidden="true">
+        <div class="leaf-border"></div>
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        
+    </div>
+    <div class="wisteria-mirrored" aria-hidden="true">
+        <div class="leaf-border"></div>
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/wisteria1-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        <img src="animations/leaves2-export.png" alt="" class="branch">
+        
+    </div>
+
+    <header>
+        <h1>Emma Harrison</h1>
+        <h2>Portfolio Website</h2>
+    </header>
+
+    <nav>
+        <a href="src.html">Home</a>
+        <a href="aboutme.html">About Me</a>
+        <a href="projects.html">Projects</a>
+        <a href="https://github.com/eharrison2028">GitHub</a>
+        <a href="contact.html">Contact</a>
+        <a href="gallery.html">Gallery</a>
+    </nav>
+
+    <div class="container">
+        <main>
+            <h3>Hello!</h3>
+            <p>Welcome to my portfolio website. It is still under construction, but this will eventually be a space to share past, current and future projects, publications, and other cool, quirky, creative happenings in my life! Take a look around! Thanks for visiting!</p>
+        </main>
+
+        <aside>
+            <h4>My Favorite Songs</h4>
+            <div class="music-player">
+                <div class="record" id="record">
+                    <img id="album-cover" src="music/unreal-unearth-cover.jpg" alt="Album artwork">
+                </div>
+
+                <p id="song-info"></p>
+
+                <button id="previous-song" type="button" aria-label="Previous song" title="Previous song">⏮</button>
+                <button id="music-toggle" type="button" aria-label="Play music" title="Play music">▶</button>
+                <button id="next-song" type="button" aria-label="Next song" title="Next song">⏭</button>
+                <audio id="music" preload="metadata"></audio>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Emma Harrison. Written using html and VS Code.</p>
+    </footer>
+<script>
+    const playlist = [
+        {
+        title: "Abstract (Psychopomp)",
+        artist: "Hozier",
+        audio: "music/Hozier - Abstract (Psychopomp) (Official Audio).mp3",
+        cover: "music/unreal-unearth-cover.jpg"
+        },
+        {
+        title: "Over country",
+        artist: "Lizzy McAlpine",
+        audio: "music/Lizzy McAlpine - Over country (Official Video).mp3",
+        cover: "music/angel-cover-art.png"
+        },
+        {
+        title: "January",
+        artist: "Marie Dresselhuis",
+        audio: "music/January.mp3",
+        cover: "music/jan-cover.jpg"
+        }
+    ];
+
+    const music = document.getElementById("music");
+    const musicToggle = document.getElementById("music-toggle");
+    const record = document.getElementById("record");
+    const albumCover = document.getElementById("album-cover");
+    const songInfo = document.getElementById("song-info");
+
+    let songIndex = 0;
+
+    music.volume = 0.3;
+
+    function loadSong(index) {
+        const song = playlist[index];
+
+        music.src = song.audio;
+        albumCover.src = song.cover;
+        albumCover.alt = song.title + " — album artwork";
+        songInfo.textContent = song.title + " — " + song.artist;
+    }
+
+    async function playMusic() {
+        try {
+        await music.play();
+        } catch (error) {
+        updatePlayer();
+        musicToggle.textContent = "▶";
+        musicToggle.setAttribute("aria-label", "Try playing again");
+        musicToggle.title = "Try playing again";
+        console.error("Unable to play music:", error);
+        }
+    }
+
+    function updatePlayer() {
+        const isPlaying = !music.paused && !music.ended;
+        const label = isPlaying ? "Pause music" : "Play music";
+
+        record.classList.toggle("playing", isPlaying);
+
+        musicToggle.textContent = isPlaying ? "⏸" : "▶";
+        musicToggle.setAttribute("aria-label", label);
+        musicToggle.title = label;
+    }
+
+    function changeSong(direction) {
+        // Keep playing if music was already playing.
+        const wasPlaying = !music.paused && !music.ended;
+
+        music.pause();
+
+        songIndex =
+        (songIndex + direction + playlist.length) % playlist.length;
+
+        loadSong(songIndex);
+        updatePlayer();
+
+        if (wasPlaying) {
+        playMusic();
+        }
+    }
+
+    musicToggle.addEventListener("click", () => {
+        if (music.paused) {
+        playMusic();
+        } else {
+        music.pause();
+        }
+    });
+
+    document.getElementById("previous-song")
+        .addEventListener("click", () => changeSong(-1));
+
+    document.getElementById("next-song")
+        .addEventListener("click", () => changeSong(1));
+
+    music.addEventListener("play", updatePlayer);
+    music.addEventListener("pause", updatePlayer);
+
+    music.addEventListener("ended", () => {
+        songIndex = (songIndex + 1) % playlist.length;
+        loadSong(songIndex);
+        updatePlayer();
+        playMusic();
+    });
+
+    loadSong(songIndex);
+</script>
+</body>
+</html>

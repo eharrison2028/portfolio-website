@@ -10,31 +10,72 @@
             padding: 0;
         }
         body{
-            font-family: Tahoma, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             line-height: 1.6;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
         header{
-            background-color: #CBB3BF;
-            color: black;
+            background-color: #AF9BB6;
+            color: #fdf0d5;
             padding: 1rem;
             text-align: center;
         }
         nav{
-            background-color: #8DA1B9;
+            background-color: #84596B;
             padding: 0.5rem;
             text-align: center;
         }
         nav a{
-            color: white;
+            color: #fdf0d5;
             margin: 0 15px;
             text-decoration: none;
         }
+        .cursor-trail {
+            position: fixed;
+            width: var(--size);
+            height: auto;
+            pointer-events: none;
+            z-index: 1000;
+            image-rendering: pixelated;
+
+            filter: drop-shadow(0 0 3px #ffe9a6);
+            opacity: 1;
+            transform: translate(-50%, -50%) rotate(var(--rotation));
+
+            animation: pixie-dust var(--life) ease-out forwards;
+            animation-delay: 400ms;
+            }
+
+            @keyframes pixie-dust {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.4)
+                        rotate(var(--rotation));
+            }
+
+            15% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1)
+                        rotate(var(--rotation));
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                translate(
+                    calc(-50% + var(--drift)),
+                    calc(-50% + var(--fall))
+                )
+                scale(0)
+                rotate(calc(var(--rotation) + 90deg));
+            }
+            }
+
         .cute-frame{
             position: absolute;
-            background-color: #ffffff;
+            background-color: #fdf0d5;
             padding: 15px 15px 25px;
             border-radius: 16px;
             box-shadow: 0 8px 24px rgba(255, 143, 171, 0.4);
@@ -70,7 +111,7 @@
             flex: 1;
         }
         main{
-            background: #FFF7AE;
+            background: #AF9BB6;
             padding: 5px;
         }
         .about-layout{
@@ -136,6 +177,71 @@
         }
     </style>
 </head>
+<script>
+    const trailImages = [
+        "animations/cursor-trail-1-dots.png",
+        "animations/cursor-trail-1-star.png",
+        "animations/cursor-trail-1-cross.png",
+        "animations/cursor-trail-1-3star.png",
+        "animations/cursor-trail-1-4star.png"
+    ];
+
+    trailImages.forEach((path) => {
+        const image = new Image();
+        image.src = path;
+    });
+
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    );
+
+    let lastTrailTime = 0;
+
+    function createDust(x, y) {
+        const dust = document.createElement("img");
+
+        dust.src = trailImages[
+        Math.floor(Math.random() * trailImages.length)
+        ];
+
+        dust.className = "cursor-trail";
+        dust.alt = "";
+        dust.setAttribute("aria-hidden", "true");
+
+        // Scatter the particles slightly around the cursor.
+        dust.style.left = x + (Math.random() - 0.5) * 20 + "px";
+        dust.style.top = y + (Math.random() - 0.5) * 20 + "px";
+
+        dust.style.setProperty("--size", 32 + Math.random() * 32 + "px");
+        dust.style.setProperty("--life", 600 + Math.random() * 700 + "ms");
+        dust.style.setProperty("--drift", (Math.random() - 0.5) * 70 + "px");
+        dust.style.setProperty("--fall", 35 + Math.random() * 65 + "px");
+        dust.style.setProperty("--rotation", Math.random() * 180 + "deg");
+
+        document.body.appendChild(dust);
+
+        dust.addEventListener("animationend", () => dust.remove());
+    }
+
+    document.addEventListener("pointermove", (event) => {
+        if (event.pointerType !== "mouse" || reducedMotion.matches) {
+        return;
+        }
+
+        const now = performance.now();
+
+        if (now - lastTrailTime < 35) {
+        return;
+        }
+
+        lastTrailTime = now;
+
+        // Create a small burst with each movement.
+        for (let i = 0; i < 3; i++) {
+        createDust(event.clientX, event.clientY);
+        }
+    });
+</script>
 <body>
 
     <header>
@@ -146,8 +252,9 @@
         <a href="src.html">Home</a>
         <a href="aboutme.html">About Me</a>
         <a href="projects.html">Projects</a>
-        <a href="#">Blog</a>
+        <a href="https://github.com/eharrison2028">GitHub</a>
         <a href="contact.html">Contact</a>
+        <a href="gallery.html">Gallery</a>
     </nav>
 
     <main>
@@ -186,22 +293,22 @@
             </div>
             <div class="cute-frame left-frame photo-1">
                 <div class="photo-wrapper">
-                    <img src="images/IMG_2932.PNG" alt="A selfie of Emma seated in a theater">
+                    <img src="images/sisters.png" alt="Emma and Erica at the Fox theater in Detroit, Mi">
                 </div>
             </div>
             <div class="cute-frame right-frame photo-2">
                 <div class="photo-wrapper">
-                    <img src="images/IMG_2933.PNG" alt="Emma with her parents">
+                    <img src="images/musical_night.png" alt="Emma with her parents at the Fisher Theater in Detroit, Mi">
                 </div>
             </div>
             <div class="cute-frame left-frame photo-3">
                 <div class="photo-wrapper">
-                    <img src="images/IMG_2932.PNG" alt="Emma with her parents">
+                    <img src="images/bike_volunteer.png" alt="Emma at Free Bikes 4 Kidz volunteer event in Detroit, Mi">
                 </div>
             </div>
                 <div class="cute-frame right-frame photo-4">
                 <div class="photo-wrapper">
-                    <img src="images/IMG_2933.PNG" alt="Emma with her parents">
+                    <img src="images/my_girls.png" alt="Emma with her parents">
                 </div>
             </div>
         </section>

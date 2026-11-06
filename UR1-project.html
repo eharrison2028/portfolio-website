@@ -1,2 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    <head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="C:\Users\eharriso1\Desktop\Portfolio Website\images\yoshi.gif">
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header{
+            background-color: #AF9BB6;
+            color: #fdf0d5;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav{
+            background-color: #84596B;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        nav a{
+            color: #fdf0d5;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
+        .container{
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 5px;
+            padding: 5px;
+            flex: 1;
+        }
+        main{
+            background: #AF9BB6;
+            padding: 5px;
+        }
+        aside{
+            background: #ddd;
+            padding: 5px;
+        }
+        footer{
+            background: #AF9BB6;
+            color: black;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        @media (max-width: 768px)
+        {
+            .container{
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: var(--size);
+            height: auto;
+            pointer-events: none;
+            z-index: 1000;
+            image-rendering: pixelated;
+
+            filter: drop-shadow(0 0 3px #ffe9a6);
+            opacity: 1;
+            transform: translate(-50%, -50%) rotate(var(--rotation));
+
+            animation: pixie-dust var(--life) ease-out forwards;
+            animation-delay: 400ms;
+            }
+
+            @keyframes pixie-dust {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.4)
+                        rotate(var(--rotation));
+            }
+
+            15% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1)
+                        rotate(var(--rotation));
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                translate(
+                    calc(-50% + var(--drift)),
+                    calc(-50% + var(--fall))
+                )
+                scale(0)
+                rotate(calc(var(--rotation) + 90deg));
+            }
+            }
+
+        @media (prefers-reduced-motion: reduce) {
+            .branch {
+                animation: none;
+            }
+
+        }
+    </style>
+</head>
+<script>
+    const trailImages = [
+        "animations/cursor-trail-1-dots.png",
+        "animations/cursor-trail-1-star.png",
+        "animations/cursor-trail-1-cross.png",
+        "animations/cursor-trail-1-3star.png",
+        "animations/cursor-trail-1-4star.png"
+    ];
+
+    trailImages.forEach((path) => {
+        const image = new Image();
+        image.src = path;
+    });
+
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    );
+
+    let lastTrailTime = 0;
+
+    function createDust(x, y) {
+        const dust = document.createElement("img");
+
+        dust.src = trailImages[
+        Math.floor(Math.random() * trailImages.length)
+        ];
+
+        dust.className = "cursor-trail";
+        dust.alt = "";
+        dust.setAttribute("aria-hidden", "true");
+
+        // Scatter the particles slightly around the cursor.
+        dust.style.left = x + (Math.random() - 0.5) * 20 + "px";
+        dust.style.top = y + (Math.random() - 0.5) * 20 + "px";
+
+        dust.style.setProperty("--size", 32 + Math.random() * 32 + "px");
+        dust.style.setProperty("--life", 600 + Math.random() * 700 + "ms");
+        dust.style.setProperty("--drift", (Math.random() - 0.5) * 70 + "px");
+        dust.style.setProperty("--fall", 35 + Math.random() * 65 + "px");
+        dust.style.setProperty("--rotation", Math.random() * 180 + "deg");
+
+        document.body.appendChild(dust);
+
+        dust.addEventListener("animationend", () => dust.remove());
+    }
+
+    document.addEventListener("pointermove", (event) => {
+        if (event.pointerType !== "mouse" || reducedMotion.matches) {
+        return;
+        }
+
+        const now = performance.now();
+
+        if (now - lastTrailTime < 35) {
+        return;
+        }
+
+        lastTrailTime = now;
+
+        // Create a small burst with each movement.
+        for (let i = 0; i < 3; i++) {
+        createDust(event.clientX, event.clientY);
+        }
+    });
+</script>
+<body>
+
+    <header>
+        <h1>Projects</h1>
+    </header>
+
+    <nav>
+        <a href="src.html">Home</a>
+        <a href="aboutme.html">About Me</a>
+        <a href="projects.html">Projects</a>
+        <a href="https://github.com/eharrison2028">GitHub</a>
+        <a href="contact.html">Contact</a>
+        <a href="gallery.html">Gallery</a>
+    </nav>
+
+    <main>
+        <section class="project-layout">
+            <div class="project-text">
+                <h2>Lane Follower Robot</h2>
+                <p>
+                    This project was completed as a requirement of the Unified Robotics I course at Lawrence Technological University. Using standard chassis platforms,
+                    students are tasked with designing, ordering and assembling a microcontroller board capable of controlling two DC motors, as well as implementing basic computer
+                    vision techniques to detect lane markings and respond accordingly. Final report and demonstration of the robotic system was collected at the end of the semester.
+                </p>
+                <p>
+                    As the first requirement of the project, we began by designing our microcontroller boards. We learned the basic functions of EagleCAD,
+                    and were provided a library of components that would be needed to successfully implement the microchip, motor controllers, LCD screen, and other features of the setup.
+                    This was, by far, the most enjoyable and rewarding portion of the entire project. While it was challenging in the beginning, the feeling of recieving the microcontroller board,
+                    soldering the components, and successfully testing the chip for the first time is unmatched. 
+                </p>
+                <p>
+                    This project relied heavily on the use of computer vision to 
+                </p>
+                <p>
+                    Final Project Report:
+                </p>                
+            </div>
+            <div class="center-container">
+                <embed src="Final_Project_Report-Emma_Harrison.pdf" width="50%" height="750" type="application/pdf">
+            </div>
+            <div class="project-text">
+                <p>
+                    This is the text after the report
+                </p>
+
+            </div>
+        </section>
+    </main>

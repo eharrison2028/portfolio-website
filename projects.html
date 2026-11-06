@@ -11,18 +11,29 @@
             padding: 0;
         }
         body{
-            font-family: Tahoma, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             line-height: 1.6;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
         header{
-            background-color: #CBB3BF;
-            color: black;
+            background-color: #AF9BB6;
+            color: #fdf0d5;
             padding: 1rem;
             text-align: center;
         }
+        nav{
+            background-color: #84596B;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        nav a{
+            color: #fdf0d5;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+
         .project-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -63,16 +74,6 @@
             line-height: 1.5;
             color: #555;
         }
-        nav{
-            background-color: #8DA1B9;
-            padding: 0.5rem;
-            text-align: center;
-        }
-        nav a{
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-        }
 
         .container{
             display: grid;
@@ -82,7 +83,7 @@
             flex: 1;
         }
         main{
-            background: #FFF7AE;
+            background: #AF9BB6;
             padding: 5px;
         }
         footer{
@@ -98,6 +99,46 @@
                 grid-template-columns: 1fr;
             }
         }
+        .cursor-trail {
+            position: fixed;
+            width: var(--size);
+            height: auto;
+            pointer-events: none;
+            z-index: 1000;
+            image-rendering: pixelated;
+
+            filter: drop-shadow(0 0 3px #ffe9a6);
+            opacity: 1;
+            transform: translate(-50%, -50%) rotate(var(--rotation));
+
+            animation: pixie-dust var(--life) ease-out forwards;
+            animation-delay: 400ms;
+            }
+
+            @keyframes pixie-dust {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.4)
+                        rotate(var(--rotation));
+            }
+
+            15% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1)
+                        rotate(var(--rotation));
+            }
+
+            100% {
+                opacity: 0;
+                transform:
+                translate(
+                    calc(-50% + var(--drift)),
+                    calc(-50% + var(--fall))
+                )
+                scale(0)
+                rotate(calc(var(--rotation) + 90deg));
+            }
+            }
     </style>
     <!--<meta name="viewport"
         content="width=device-width,
@@ -106,6 +147,71 @@
         href="style.css">-->
 
     </head>
+    <script>
+    const trailImages = [
+        "animations/cursor-trail-1-dots.png",
+        "animations/cursor-trail-1-star.png",
+        "animations/cursor-trail-1-cross.png",
+        "animations/cursor-trail-1-3star.png",
+        "animations/cursor-trail-1-4star.png"
+    ];
+
+    trailImages.forEach((path) => {
+        const image = new Image();
+        image.src = path;
+    });
+
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    );
+
+    let lastTrailTime = 0;
+
+    function createDust(x, y) {
+        const dust = document.createElement("img");
+
+        dust.src = trailImages[
+        Math.floor(Math.random() * trailImages.length)
+        ];
+
+        dust.className = "cursor-trail";
+        dust.alt = "";
+        dust.setAttribute("aria-hidden", "true");
+
+        // Scatter the particles slightly around the cursor.
+        dust.style.left = x + (Math.random() - 0.5) * 20 + "px";
+        dust.style.top = y + (Math.random() - 0.5) * 20 + "px";
+
+        dust.style.setProperty("--size", 32 + Math.random() * 32 + "px");
+        dust.style.setProperty("--life", 600 + Math.random() * 700 + "ms");
+        dust.style.setProperty("--drift", (Math.random() - 0.5) * 70 + "px");
+        dust.style.setProperty("--fall", 35 + Math.random() * 65 + "px");
+        dust.style.setProperty("--rotation", Math.random() * 180 + "deg");
+
+        document.body.appendChild(dust);
+
+        dust.addEventListener("animationend", () => dust.remove());
+    }
+
+    document.addEventListener("pointermove", (event) => {
+        if (event.pointerType !== "mouse" || reducedMotion.matches) {
+        return;
+        }
+
+        const now = performance.now();
+
+        if (now - lastTrailTime < 35) {
+        return;
+        }
+
+        lastTrailTime = now;
+
+        // Create a small burst with each movement.
+        for (let i = 0; i < 3; i++) {
+        createDust(event.clientX, event.clientY);
+        }
+    });
+</script>
 <body>
     <header>
         <h1>Recent Projects</h1>
@@ -115,8 +221,9 @@
         <a href="src.html">Home</a>
         <a href="aboutme.html">About Me</a>
         <a href="projects.html">Projects</a>
-        <a href="#">Blog</a>
+        <a href="https://github.com/eharrison2028">GitHub</a>
         <a href="contact.html">Contact</a>
+        <a href="gallery.html">Gallery</a>
     </nav>
 
     
@@ -157,6 +264,24 @@
                 <div class="card-content">
                     <h2>CAN Message Monitor for EV Battery Pack Cell Voltages</h2>
                     <p>This is the Quest Project</p>
+                </div>
+                </a>
+            <a class="project-card" href="thermal_cam.html">
+                <img 
+                    src="images/IMG_1039.jpeg"
+                    alt="edubot enabled robot">
+                <div class="card-content">
+                    <h2>Thermal Camera Monitor Dashboard for EV Battery Pack Disassembly</h2>
+                    <p>This is the thermal camera project</p>
+                </div>
+                </a>
+            <a class="project-card" href="Intelligent-Robotics-Project.html">
+                <img 
+                    src="images/IMG_1039.jpeg"
+                    alt="edubot enabled robot">
+                <div class="card-content">
+                    <h2>Lane-Following Intelligent Robot</h2>
+                    <p>This is the robotics project</p>
                 </div>
                 </a>
             </div>
